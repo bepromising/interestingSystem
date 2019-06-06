@@ -1,10 +1,10 @@
-let webpack = require("webpack")
-let path = require("path")
-let HtmlWebpackPlugin = require("html-webpack-plugin")
-let { CleanWebpackPlugin } = require("clean-webpack-plugin")
-let CopyWebpackPlugin = require("copy-webpack-plugin")
-let MiniCssExtractPlugin = require("mini-css-extract-plugin")
-console.log(process.cwd() + "/src")
+// let webpack = require("webpack");
+// let path = require("path");
+let HtmlWebpackPlugin = require("html-webpack-plugin");
+let { CleanWebpackPlugin } = require("clean-webpack-plugin");
+let CopyWebpackPlugin = require("copy-webpack-plugin");
+let MiniCssExtractPlugin = require("mini-css-extract-plugin");
+console.log(process.cwd() + "/src");
 module.exports = {
   entry: {
     index: "./src/index.js"
