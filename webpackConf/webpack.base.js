@@ -1,17 +1,16 @@
 // let webpack = require("webpack");
 // let path = require("path");
+// let CopyWebpackPlugin = require("copy-webpack-plugin");
 let HtmlWebpackPlugin = require("html-webpack-plugin");
 let { CleanWebpackPlugin } = require("clean-webpack-plugin");
-let CopyWebpackPlugin = require("copy-webpack-plugin");
 let MiniCssExtractPlugin = require("mini-css-extract-plugin");
-console.log(process.cwd() + "/src");
 module.exports = {
   entry: {
     index: "./src/index.js"
   },
   output: {
-    filename: "[name].[hash:8].js",
-    path: process.cwd() + "/dist/js"
+    filename: "js/[name].[hash:8].js",
+    path: process.cwd() + "/dist"
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -25,7 +24,7 @@ module.exports = {
       }
     }),
     new CleanWebpackPlugin(),
-    new CopyWebpackPlugin([{ from: "./public/favico.png", to: "./" }]),
+    // new CopyWebpackPlugin([{ from: "./public/favico.png", to: "./" }]),
     new MiniCssExtractPlugin({
       filename: "css/main.css"
     })

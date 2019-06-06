@@ -5,7 +5,7 @@ module.exports = smart(base, {
     mode: 'development',
     devtool: 'cheap-eval-source-map',   
     devServer: {
-        contentBase: path.resolve(__dirname, '../dist'),
+        contentBase: process.cwd() + "/dist",
         host: 'localhost',
         hot: true,
         open: true,
