@@ -4,7 +4,7 @@ let TerserJSPlugin = require('terser-webpack-plugin');
 let OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 module.exports = smart(base, {
 	mode: 'production',
-	devtool: 'cheap-source-map',
+	devtool: 'source-map',
 	optimization: {
 		minimizer: [
 			new TerserJSPlugin({

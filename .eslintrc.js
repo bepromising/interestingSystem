@@ -4,7 +4,12 @@ module.exports = {
 		es6: true,
 		node: true
 	},
-	extends: ['standard', 'plugin:prettier/recommended'],
+	extends: [
+		'standard',
+		'plugin:vue/essential',
+		'plugin:prettier/recommended',
+		'@vue/typescript'
+	],
 	globals: {
 		Atomics: 'readonly',
 		SharedArrayBuffer: 'readonly'
@@ -14,9 +19,8 @@ module.exports = {
 		sourceType: 'module',
 		parser: 'babel-eslint'
 	},
-	plugins: ['vue', 'prettier'],
 	rules: {
-		'prettier/prettier': 'error',
+		'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
 		'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
 	}
 };

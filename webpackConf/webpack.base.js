@@ -1,12 +1,14 @@
 // let webpack = require("webpack");
 // let path = require("path");
-// let CopyWebpackPlugin = require("copy-webpack-plugin");
-let HtmlWebpackPlugin = require('html-webpack-plugin');
-let { CleanWebpackPlugin } = require('clean-webpack-plugin');
-let MiniCssExtractPlugin = require('mini-css-extract-plugin');
+let CopyWebpackPlugin = require('copy-webpack-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 module.exports = {
 	entry: {
-		index: './src/index.js'
+		index: './src/index.ts',
+		vue: './src/vue/index.ts'
 	},
 	output: {
 		filename: 'js/[name].[hash:8].js',
@@ -16,6 +18,18 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			template: './public/index.html',
 			filename: 'index.html',
+			chunks: ['index'],
+			inject: true,
+			hash: true,
+			minify: {
+				collapseWhitespace: true, // 去掉空行
+				removeComments: true // 去掉注释
+			}
+		}),
+		new HtmlWebpackPlugin({
+			template: './public/vue.html',
+			filename: 'vue.html',
+			chunks: ['vue'],
 			inject: true,
 			hash: true,
 			minify: {
@@ -24,10 +38,11 @@ module.exports = {
 			}
 		}),
 		new CleanWebpackPlugin(),
-		// new CopyWebpackPlugin([{ from: "./public/favico.png", to: "./" }]),
+		// new CopyWebpackPlugin([{ from: './public', to: './' }]),
 		new MiniCssExtractPlugin({
-			filename: 'css/main.css'
-		})
+			filename: 'css/[name].css'
+		}),
+		new VueLoaderPlugin()
 	],
 	module: {
 		rules: [
@@ -35,6 +50,14 @@ module.exports = {
 				test: /\.js$/,
 				exclude: /node_modules/,
 				use: ['babel-loader']
+			},
+			{
+				test: /\.vue$/,
+				loader: 'vue-loader'
+			},
+			{
+				test: /\.tsx?$/,
+				loader: 'ts-loader'
 			},
 			{
 				test: /\.(css|less)$/,
@@ -60,7 +83,7 @@ module.exports = {
 		]
 	},
 	resolve: {
-		extensions: ['.js', '.ts', '.tsx', '.css', '.json'],
+		extensions: ['.vue', '.js', '.ts', '.tsx', '.css', '.less', '.json'],
 		alias: {
 			'@': process.cwd() + '/src'
 		}
