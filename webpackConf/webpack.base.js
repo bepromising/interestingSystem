@@ -5,6 +5,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const Happypack = require('happypack');
 module.exports = {
 	entry: {
 		index: './src/index.ts',
@@ -45,6 +46,18 @@ module.exports = {
 		new webpack.DllReferencePlugin({
 			manifest: process.cwd() + '/public/dll/' + 'vue.dll.json'
 		}),
+		// new Happypack({
+		// 	id: 'css',
+		// 	use: [
+		// 		{ loader: 'css-loader' },
+		// 		{ loader: 'postcss-loader' },
+		// 		{ loader: 'less-loader' }
+		// 	]
+		// }),
+		// new Happypack({
+		// 	id: 'js',
+		// 	use: ['babel-loader']
+		// }),
 		new VueLoaderPlugin()
 	],
 	module: {
@@ -52,7 +65,9 @@ module.exports = {
 			{
 				test: /\.js$/,
 				exclude: /node_modules/,
-				use: ['babel-loader']
+				include: process.cwd() + '/src',
+				use: 'babel-loader'
+				// use: 'Happypack/loader?id=js'
 			},
 			{
 				test: /\.vue$/,
@@ -69,6 +84,7 @@ module.exports = {
 				test: /\.(css|less)$/,
 				use: [
 					MiniCssExtractPlugin.loader,
+					// 'Happypack/loader?id=css'
 					'css-loader',
 					'postcss-loader',
 					'less-loader'
