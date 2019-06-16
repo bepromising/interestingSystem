@@ -5,7 +5,8 @@
 	"main": "index.js",
 	"scripts": {
 		"start": "webpack-dev-server --config ./webpackConf/webpack.dev.js",
-		"build": "webpack --config ./webpackConf/webpack.pro.js"
+		"build": "webpack --config ./webpackConf/webpack.pro.js",
+		"dll": "webpack --config ./webpackConf/webpack.dll.js"
 	},
 	"author": "chensy.lin",
 	"license": "ISC",
@@ -41,7 +42,7 @@
 		"url-loader": "^1.1.2",
 		"vue-loader": "^15.7.0",
 		"vue-template-compiler": "^2.6.10",
-		"webpack": "^4.33.0",
+		"webpack": "^4.34.0",
 		"webpack-cli": "^3.3.2",
 		"webpack-dev-server": "^3.5.1",
 		"webpack-merge": "^4.2.1"

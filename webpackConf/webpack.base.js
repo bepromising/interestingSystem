@@ -1,5 +1,5 @@
-// let webpack = require("webpack");
 // let path = require("path");
+let webpack = require('webpack');
 let CopyWebpackPlugin = require('copy-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -15,6 +15,7 @@ module.exports = {
 		path: process.cwd() + '/dist'
 	},
 	plugins: [
+		new CleanWebpackPlugin(),
 		new HtmlWebpackPlugin({
 			template: './public/index.html',
 			filename: 'index.html',
@@ -37,10 +38,12 @@ module.exports = {
 				removeComments: true // 去掉注释
 			}
 		}),
-		new CleanWebpackPlugin(),
-		// new CopyWebpackPlugin([{ from: './public', to: './' }]),
+		new CopyWebpackPlugin([{ from: './public/dll', to: './dll' }]),
 		new MiniCssExtractPlugin({
-			filename: 'css/[name].css'
+			filename: 'css/[id].[name].[hash:8].css'
+		}),
+		new webpack.DllReferencePlugin({
+			manifest: process.cwd() + '/public/dll/' + 'vue.dll.json'
 		}),
 		new VueLoaderPlugin()
 	],
@@ -57,7 +60,10 @@ module.exports = {
 			},
 			{
 				test: /\.tsx?$/,
-				loader: 'ts-loader'
+				loader: 'ts-loader',
+				options: {
+					appendTsSuffixTo: [/\.vue$/]
+				}
 			},
 			{
 				test: /\.(css|less)$/,

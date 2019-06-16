@@ -14,10 +14,11 @@ module.exports = smart(base, {
 		],
 		splitChunks: {
 			cacheGroups: {
-				common: {
-					chunks: 'initial',
-					minSize: 0,
-					minChunks: 1
+				styles: {
+					name: 'styles',
+					test: /\.css$/,
+					chunks: 'all',
+					enforce: true
 				},
 				vendor: {
 					priority: 1,
