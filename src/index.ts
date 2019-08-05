@@ -2,11 +2,11 @@ import '@/style/index';
 class HackCanvas {
 	fontSize: number;
 	list: number[];
-	ctx: any;
+	ctx: CanvasRenderingContext2D;
 	width: number;
 	height: number;
 	timer: any;
-	canvas: any;
+	canvas: HTMLCanvasElement;
 
 	constructor(id: string) {
 		// @ts-ignore
@@ -32,7 +32,7 @@ class HackCanvas {
 		this.ctx.font = this.fontSize + 'px arial';
 		let columns = Math.ceil(this.width / this.fontSize);
 		for (let i = 0; i < columns; i++) {
-			let n = Math.floor(Math.random() * 10);
+			let n: string = Math.floor(Math.random() * 10).toString();
 			this.ctx.fillText(
 				n,
 				i * this.fontSize,
